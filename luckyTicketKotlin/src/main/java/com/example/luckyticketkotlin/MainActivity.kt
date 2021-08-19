@@ -9,9 +9,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import java.lang.NumberFormatException
 
-const val NUMBER_OF_DIGITS = 6
-
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val NUMBER_OF_DIGITS = 6
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
