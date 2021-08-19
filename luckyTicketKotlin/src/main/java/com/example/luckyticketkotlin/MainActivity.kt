@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import java.lang.NumberFormatException
 
+const val NUMBER_OF_DIGITS = 6
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,41 +19,36 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun onClick(view: View) {
-        val input = findViewById<EditText>(R.id.editText).text.toString()
-        val bulb = findViewById<ImageView>(R.id.bulb)
-        val bulbGreen = getDrawable(R.drawable.bulbgreen)
-        val bulbRed = getDrawable(R.drawable.bulbred)
+        val input = findViewById<EditText>(R.id.etTicketNumber).text.toString()
+        val bulb = findViewById<ImageView>(R.id.imgBulb)
+        val bulbGreen = getDrawable(R.drawable.ic_bulbgreen)
+        val bulbRed = getDrawable(R.drawable.ic_bulbred)
 
-        if (input.length == 6) {
+        if (input.length == NUMBER_OF_DIGITS) {
             try {
-                val number = input.toInt()
-                when {
-                    number == 0 -> {
-                        bulb.setImageDrawable(bulbGreen)
-                    }
-                    number / 1000 % 10 + number / 100000 + number / 10000 % 10
-                            == number % 10 + number % 1000 / 100 + number % 100 / 10 -> {
-                        bulb.setImageDrawable(bulbGreen)
-                    }
-                    else -> {
-                        bulb.setImageDrawable(bulbRed)
-                    }
+                val str = input.split("").drop(1).dropLast(1)
+                val result = str.map { it.toInt() }.toTypedArray()
+
+                if (result[0] + result[1] + result[2] == result[3] + result[4] + result[5]) {
+                    bulb.setImageDrawable(bulbGreen)
+                } else {
+                    bulb.setImageDrawable(bulbRed)
                 }
             } catch (ex: NumberFormatException) {
-                val toast = Toast.makeText(
+                Toast.makeText(
                     applicationContext,
-                    "You need to enter only numbers",
+                    "You need to enter only digits",
                     Toast.LENGTH_SHORT
                 )
-                toast.show()
+                    .show()
             }
         } else {
-            val toast = Toast.makeText(
+            Toast.makeText(
                 applicationContext,
-                "You mush enter 6 numbers",
+                "You mush enter 6 digits",
                 Toast.LENGTH_SHORT
             )
-            toast.show()
+                .show()
         }
     }
 }
