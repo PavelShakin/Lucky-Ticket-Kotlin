@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         if (input.length == NUMBER_OF_DIGITS) {
             try {
-                val str = input.split("").drop(1).dropLast(1)
-                val result = str.map { it.toInt() }.toTypedArray()
+                val result = input.toCharArray().map { it.toString().toInt() }
 
                 if (result[0] + result[1] + result[2] == result[3] + result[4] + result[5]) {
                     bulb.setImageDrawable(bulbGreen)
