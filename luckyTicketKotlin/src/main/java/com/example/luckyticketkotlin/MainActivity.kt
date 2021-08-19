@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(
                 applicationContext,
-                "You mush enter 6 digits",
+                "You must enter 6 digits",
                 Toast.LENGTH_SHORT
             )
                 .show()
